@@ -1,13 +1,7 @@
+import os, time
 
-def present():
-    print('+-------------------------------------------------------------+\n\
-           |                                                             |\n\
-           | AGENDA PESSOAL DE ANIVERSÁRIOS E FORMAS DE CONTATAR PESSOAS |\n\
-           |                                                             |\n\
-           |                                                             |\n\
-           | Versão 1.0 de 12/abril/2024                                 |\n\
-           |                                                             |\n\
-           +-------------------------------------------------------------+')
+def cls():
+    os.system('cls' if os.name=='nt' else 'clear')
 
 def text (solicitacao, mensagem, validate):
     right_input=False
@@ -50,92 +44,69 @@ def pos(nom,agd):
             
     return [False,inicio]
 
-def incluir (agd):
-    right_input=False
-    while not right_input:
-        nome=input('\nNome.......: ')
-
-        resposta = pos(nome,agd)
-        achou = resposta[0]
-        posicao = resposta[1]
-
-        if achou:
-            print('Pessoa já existente - Favor redigitar...')
-        else:
-            right_input=True
-            
-    aniversario = input('Aniversário: ')
-    endereco = input('Endereço: ')
-    telefone = input('Telefone: ')
-    celular = input('Celular: ')
-    email = input('e-mail: ')
-    
-    contato= [nome,aniversario,endereco,telefone,celular,email]
-    
-    agd.insert(posicao,contato)
-    print('Cadastro realizado com sucesso!')
-    
-    def include(agd):
+def incluir(agd):
+    try:
+        time.sleep(1)
+        cls()
         right_input = False
         while not right_input:
-            nome = input('\nNome.......: ')
-
-            resposta = pos(nome, agd)
+            nome = input('\nNome: ')
+            resposta = pos(nome,agd)
             achou = resposta[0]
             posicao = resposta[1]
-
             if achou:
-                print('Pessoa já existente - Favor redigitar...')
+                print ('Este contato já existe. Por favor, tente novamente.')
             else:
                 right_input = True
-
+                
         aniversario = input('Aniversário: ')
         endereco = input('Endereço: ')
-        telefone = input('Telefone: ')
+        telefone = input('Telefone:')
+        if not telefone.isdigit():
+            raise ValueError('Celular inválido')
         celular = input('Celular: ')
+        if not celular.isdigit():
+            raise ValueError('Celular inválido')
         email = input('e-mail: ')
-
-        contato = [nome, aniversario, endereco, telefone, celular, email]
-        agd.insert(posicao, contato)
+        if '@' not in email:
+            raise ValueError('Invalid email address')
+        if nome == '' or aniversario == '' or endereco == '' or telefone == '' or celular == '' or email == '':
+            raise ValueError
+        contato=[nome,aniversario,endereco,telefone,celular,email]
+        agd.insert(posicao,contato)
         print('Cadastro realizado com sucesso!')
-        
+    except ValueError:
+        print('Erro ao incluir contato. Tente novamente.')
+        incluir(agd)
+    
 def procurar(agd):
-
+    cls()
     right_input = False
     while not right_input:
-
         nome = input("Digite o nome completo do contato: ")
         Lista_decontato = pos(nome, agd)
-        achou = Lista_decontato [0]
-        posicao = Lista_decontato [1]
+        achou = Lista_decontato[0]
+        posicao = Lista_decontato[1]
 
-    if nome not in Lista_decontato:
-        print ("Este contato não existe, tente novamente")
-    
-    else:
-    
-        print('Aniversario:',agd[posicao][1])
-        print('Endereco:',agd[posicao][2])
-        print('Telefone:',agd[posicao][3])
-        print('Celular:',agd[posicao][4])
-        print('e-mail:',agd[posicao][5])
-        
-        right_input= True
+        if not achou:
+            print("Este contato não existe, tente novamente")
+        else:
+            print('Aniversario:', agd[posicao][1])
+            print('Endereco:', agd[posicao][2])
+            print('Telefone:', agd[posicao][3])
+            print('Celular:', agd[posicao][4])
+            print('e-mail:', agd[posicao][5])
+            right_input = True
 
-    
-
-
-    print (procurar(Lista_decontato))
     return Lista_decontato
-    print (procurar(Lista_decontato))
 
-
-def excluir (agd):
+def excluir(agd):
+    cls()
     print()
     
     right_input = False
     while not right_input:
-        nome = input('Nome.......: ')
+        nome = input('NomeS: ')
         
         resposta = pos(nome ,agd)
         achou = resposta[0]
@@ -144,7 +115,7 @@ def excluir (agd):
         if not achou:
             print ('Este contato não existe. Por favor, tente novamente.')
         else:
-            right_input=True
+            right_input = True
     
     print('Aniversario:',agd[posicao][1])
     print('Endereco:',agd[posicao][2])
@@ -152,7 +123,7 @@ def excluir (agd):
     print('Celular:',agd[posicao][4])
     print('e-mail:',agd[posicao][5])
 
-    resposta = text('Deseja realmente excluir? ','Você deve digitar S ou N',['s','S','n','N'])
+    resposta = text('Deseja realmente excluir? Insira S ou N','Você deve digitar S ou N',['s','S','n','N'])
     
 
 def text(inputText, mensagem, validate):
@@ -184,32 +155,8 @@ def pos(nom,agd):
             
     return [False,ini]
 
-
-def incluir(agd):
-    right_input=False
-    while not right_input:
-        nome=input('\nNome: ')
-
-        resposta = pos(nome,agd)
-        achou = resposta[0]
-        posicao = resposta[1]
-
-        if achou:
-            print ('Este contato já existe. Por favor, tente novamente.')
-        else:
-            right_input=True
-            
-    aniversario= input('Aniversário: ')
-    endereco = input('Endereço: ')
-    telefone = input('Telefone: ')
-    celular = input('Celular: ')
-    email = input('e-mail: ')
-    contato=[nome,aniversario,endereco,telefone,celular,email]
-    agd.insert(posicao,contato)
-    print('Cadastro realizado com sucesso!')
-    
-    
 def busca(agd):
+    cls()
     nome=input('Nome a ser procurado: ')
     resposta=pos(nome,agd)
     achou = resposta[0]
@@ -226,32 +173,41 @@ def busca(agd):
         print('Nome não encontrado!')
         
 def atualiza(agd):
+    cls()
     nome=input('Nome a ser atualizado: ')
     resposta=pos(nome,agd)
     achou = resposta[0]
     posicao = resposta[1]
     
     if achou:
-        print('Nome:',agd[posicao][0])
-        print('Aniversário:',agd[posicao][1])
-        print('Endereço:',agd[posicao][2])
-        print('Telefone:',agd[posicao][3])
-        print('Celular:',agd[posicao][4])
-        print('e-mail:',agd[posicao][5])
-        
-        aniversario= input('Aniversário: ')
-        endereco = input('Endereço: ')
-        telefone = input('Telefone: ')
-        celular = input('Celular: ')
-        email = input('e-mail: ')
-        
-        agd[posicao]=[nome,aniversario,endereco,telefone,celular,email]
-        print('Cadastro atualizado com sucesso!')
+        print("O que deseja atualizar?")
+        print("[1] Nome")
+        print("[2] Aniversário")
+        print("[3] Endereço")
+        print("[4] Telefone")
+        print("[5] Celular")
+        print("[6] e-mail")
+        opcao = input("Opção: ")
+        match opcao:
+            case '1':
+                agd[posicao][0] = input("Novo nome: ")
+            case '2':
+                agd[posicao][1] = input("Novo aniversário: ")
+            case '3':
+                agd[posicao][2] = input("Novo endereço: ")
+            case '4':
+                agd[posicao][3] = input("Novo telefone: ")
+            case '5':
+                agd[posicao][4] = input("Novo celular: ")
+            case '6':
+                agd[posicao][5] = input("Novo e-mail: ")
     else:
         print('Nome não encontrado!')
         
 def lista(agd):
+    cls()
     print()
+    
     for contato in agd:
         print('Nome:',contato[0])
         print('Aniversário:',contato[1])
@@ -262,6 +218,7 @@ def lista(agd):
         print()
 
 def exclui(agd):
+    cls()
     print()
     nome=input('Nome a ser excluído: ')
     resposta=pos(nome,agd)
