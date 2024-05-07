@@ -1,18 +1,22 @@
-from menumethods import incluir, procura, atualiza, lista, exclui
+import methods
 print('+-------------------------------------------------------------+\n\
 |                                                             |\n\
 | AGENDA PESSOAL DE ANIVERSÁRIOS E FORMAS DE CONTATAR PESSOAS |\n\
 |                                                             |\n\
 |                                                             |\n\
-| Versão 1.0 de 12/abril/2024                                 |\n\
+| Augusto Gramani Lacerda                                     |\n\
+| Cris Oliveira Olímpio                                       |\n\
+| Davi Andrade Macedo                                         |\n\
+|                                                             |\n\
+| Versão 2.0 de 7 de Abril de 2024                            |\n\
 |                                                             |\n\
 +-------------------------------------------------------------+')
 agenda=[]
 
 def menu():
     
-    print ("Escolha uma opção:")
-    print ("\n[1] Incluir um contato\n\
+    print("Escolha uma opção:")
+    print("\n[1] Incluir um contato\n\
 [2] Buscar um contato\n\
 [3] Atualizar um contato\n\
 [4] Listar todos os contatos\n\
@@ -21,19 +25,18 @@ def menu():
     opcao = input("Opção: ")
     match opcao:
         case '1':
-            incluir(agenda)
+            methods.incluir(agenda)
         case '2':
-            procura(agenda)
+            methods.procura(agenda)
         case '3':
-            atualiza(agenda)
+            methods.atualiza(agenda)
         case '4':
-            lista(agenda)
+            methods.lista(agenda)
         case '5':
-            exclui(agenda)
+            methods.exclui(agenda)
         case '6':
             print('OBRIGADO POR USAR ESTE PROGRAMA!')
             exit()
-
 if __name__ == '__main__':
     while True:
         menu()

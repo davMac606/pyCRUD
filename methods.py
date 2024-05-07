@@ -1,20 +1,7 @@
 import os, time
-from main import menu
-
+import main
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
-
-def text (solicitacao, mensagem, validate):
-    right_input=False
-    while not right_input:
-        txt=input(solicitacao)
-
-        if txt not in validate:
-            print(mensagem,'- Favor redigitar...')
-        else:
-            right_input=True
-
-    return txt
 
 def pos(nom,agd):
     inicio = 0
@@ -26,7 +13,8 @@ def pos(nom,agd):
             return [True,meio]
         elif nom.upper()<agd[meio][0].upper():
             final=meio-1
-        else: # nom.upper()>agd[meio][0].upper()
+        else: 
+            nom.upper()>agd[meio][0].upper()
             inicio=meio+1
             
     return [False,inicio]
