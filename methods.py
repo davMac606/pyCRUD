@@ -168,12 +168,20 @@ def exclui(agd):
         print('Celular:',agd[posicao][4])
         print('e-mail:',agd[posicao][5])
         
-        resposta=text('Deseja realmente excluir?[s/S] ou [n/N]: ','Opção inválida. Por favor tente novamente',['s','S','n','N'])
-        
-        if resposta in ['s','S']:
-            agd.remove(agd[posicao])
-            print('Cadastro excluído com sucesso!')
-        else:
-            print('Exclusão cancelada.')
+        resposta = input("Deseja mesmo excluir? \
+[S] Sim\n\
+[N] Nao\n\
+Opção: ")
+        match resposta:
+            case 'S':
+                agd.remove(agd[posicao])
+                print('Cadastro excluído com sucesso!')
+            case 'N':
+                print('Exclusão cancelada.')
+            case 's':
+                agd.remove(agd[posicao])
+                print('Cadastro excluído com sucesso!')
+            case 'n':
+                print('Exclusão cancelada.')
     else:
         print('Nome não encontrado.')
