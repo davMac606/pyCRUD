@@ -45,6 +45,7 @@ def incluir(agd):
                 print ('Este contato já existe. Por favor, tente novamente.')
             else:
                 right_input = True
+
                 
         aniversario = input('Aniversário: ')
         if '/' not in aniversario:
@@ -58,7 +59,7 @@ def incluir(agd):
             raise ValueError('Celular inválido')
         email = input('e-mail: ')
         if '@' not in email:
-            raise ValueError('Invalid email address')
+            raise ValueError('Invalid email address.')
         if nome == '' or aniversario == '' or endereco == '' or telefone == '' or celular == '' or email == '':
             raise ValueError
         contato=[nome,aniversario,endereco,telefone,celular,email]
@@ -109,34 +110,46 @@ def atualiza(agd):
     
     if achou:
         while True:
-            print("O que deseja atualizar?")
-            print("[1] Nome")
-            print("[2] Aniversário")
-            print("[3] Endereço")
-            print("[4] Telefone")
-            print("[5] Celular")
-            print("[6] E-mail")
-            print("[7] Cancelar")
-            opcao = input("Opção: ")
-            if opcao == '1':
-                agd[posicao][0] = input("Novo nome: ")
-            elif opcao == '2':
-                agd[posicao][1] = input("Novo aniversário: ")
-            elif opcao == '3':
-                agd[posicao][2] = input("Novo endereço: ")
-            elif opcao == '4':
-                agd[posicao][3] = input("Novo telefone: ")
-            elif opcao == '5':
-                agd[posicao][4] = input("Novo celular: ")
-            elif opcao == '6':
-                agd[posicao][5] = input("Novo e-mail: ")
-            elif opcao == '7':
-                print('Atualização finalizada!')
-                break
-            else:
-                print('Opção inválida!')
-    else:
-        print('Nome não encontrado!')
+            try:
+                print("O que deseja atualizar?")
+                print("[1] Nome")
+                print("[2] Aniversário")
+                print("[3] Endereço")
+                print("[4] Telefone")
+                print("[5] Celular")
+                print("[6] E-mail")
+                print("[7] Cancelar")
+                opcao = input("Opção: ")
+                if opcao == '1':
+                    agd[posicao][0] = input("Novo nome: ")
+                elif opcao == '2':
+                    agd[posicao][1] = input("Novo aniversário: ")
+                    if '/' not in agd[posicao][1]:
+                        raise ValueError('Aniversário inválido. Por favor, insira novamente.')
+                elif opcao == '3':
+                    agd[posicao][2] = input("Novo endereço: ")
+                elif opcao == '4':
+                    agd[posicao][3] = input("Novo telefone: ")
+                    if not str(agd[posicao][3]).isdigit():
+                        raise ValueError('Telefone inválido. Por favor, insira novamente.')
+                elif opcao == '5':
+                    agd[posicao][4] = input("Novo celular: ")
+                    if not str(agd[posicao][4]).isdigit():
+                        raise ValueError('Celular inválido. Por favor, insira novamente.')
+                elif opcao == '6':
+                    agd[posicao][5] = input("Novo e-mail: ")
+                    if '@' not in agd[posicao][5]:
+                        raise ValueError('E-mail inválido. Por favor, insira novamente.')
+                elif opcao == '7':
+                    print('Atualização finalizada!')
+                    break
+                else:
+                    print('Opção inválida!')
+            except ValueError:
+                print('Erro ao incluir contato. Tente novamente.')
+                atualiza()
+    else: 
+         print('Nome não encontrado!')
         
 def exclui(agd):
     cls()
