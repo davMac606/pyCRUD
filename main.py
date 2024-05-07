@@ -1,4 +1,4 @@
-import menumethods
+from menumethods import incluir, procura, atualiza, lista, exclui
 print('+-------------------------------------------------------------+\n\
 |                                                             |\n\
 | AGENDA PESSOAL DE ANIVERSÁRIOS E FORMAS DE CONTATAR PESSOAS |\n\
@@ -21,15 +21,15 @@ def menu():
     opcao = input("Opção: ")
     match opcao:
         case '1':
-            menumethods.incluir(agenda)
+            incluir(agenda)
         case '2':
-            menumethods.procura(agenda)
+            procura(agenda)
         case '3':
-            menumethods.atualiza(agenda)
+            atualiza(agenda)
         case '4':
-            menumethods.lista(agenda)
+            lista(agenda)
         case '5':
-            menumethods.exclui(agenda)
+            exclui(agenda)
         case '6':
             print('OBRIGADO POR USAR ESTE PROGRAMA!')
             exit()
