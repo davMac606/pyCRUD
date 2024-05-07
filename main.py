@@ -10,6 +10,7 @@ print('+-------------------------------------------------------------+\n\
 agenda=[]
 
 def menu():
+    
     print ("Escolha uma opção:")
     print ("\n[1] Incluir um contato\n\
 [2] Buscar um contato\n\
@@ -22,7 +23,7 @@ def menu():
         case '1':
             menumethods.incluir(agenda)
         case '2':
-            menumethods.busca(agenda)
+            menumethods.procura(agenda)
         case '3':
             menumethods.atualiza(agenda)
         case '4':

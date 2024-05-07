@@ -16,23 +16,9 @@ def text (solicitacao, mensagem, validate):
 
     return txt
 
-def chosen(mnu):
-    print ()
-
-    opcoesValidas=[]
-    pos=0
-    while pos<len(mnu):
-        print (pos +1,') ',mnu[pos],sep='')
-        opcoesValidas.append(str(pos + 1))
-        pos += 1
-
-    print()
-    return text('Qual é a sua opção? ', 'Opção inválida', opcoesValidas)
-
 def pos(nom,agd):
-    inicio= 0
+    inicio = 0
     final = len(agd)-1
-    
     while inicio<=final:
         meio=(inicio+final)//2
         
@@ -73,8 +59,10 @@ def incluir(agd):
                 right_input = True
                 
         aniversario = input('Aniversário: ')
+        if '/' not in aniversario:
+            raise ValueError('Data inválida')
         endereco = input('Endereço: ')
-        telefone = input('Telefone:')
+        telefone = input('Telefone: ')
         if not telefone.isdigit():
             raise ValueError('Celular inválido')
         celular = input('Celular: ')
@@ -105,29 +93,29 @@ def lista(agd):
         print('e-mail:',contato[5])
         print()
         
-def busca(agd):
-    cls()
-    right_input = False
-    while not right_input:
-        nome = input('Nome a ser procurado: ')
-        resposta = pos(nome, agd)
-        achou = resposta[0]
-        posicao = resposta[1]
-        if achou:
-            print('Nome:', agd[posicao][0])
-            print('Aniversário:', agd[posicao][1])
-            print('Endereço:', agd[posicao][2])
-            print('Telefone:', agd[posicao][3])
-            print('Celular:', agd[posicao][4])
-            print('e-mail:', agd[posicao][5])
-            right_input = True
+def procura(agd):
+#done by cris 
+    digitouDireito = False
+    while not digitouDireito:
+        nome = input("\nDigite o nome completo do contato: ")
+        Lista_decontato = pos(nome, agd)
+        achou = Lista_decontato [0]
+        posicao = Lista_decontato [1]
+        if not achou:
+            print ("Este contato não existe, tente novamente")      
         else:
-            print('Nome não encontrado!')
+            digitouDireito = True
+
+    print('Aniversario: ',agd[posicao][1])
+    print('Endereco: ',agd[posicao][2])
+    print('Telefone: ',agd[posicao][3])
+    print('Celular: ',agd[posicao][4])
+    print('e-mail: ',agd[posicao][5])
         
 def atualiza(agd):
     cls()
     nome=input('Nome a ser atualizado: ')
-    resposta=pos(nome,agd)
+    resposta = pos(nome,agd)
     achou = resposta[0]
     posicao = resposta[1]
     
@@ -164,9 +152,10 @@ def atualiza(agd):
         
 def exclui(agd):
     cls()
+    time.sleep(1)
     print()
-    nome=input('Nome a ser excluído: ')
-    resposta=pos(nome,agd)
+    nome = input('Nome a ser excluído: ')
+    resposta = pos(nome,agd)
     achou = resposta[0]
     posicao = resposta[1]
     
@@ -178,12 +167,12 @@ def exclui(agd):
         print('Celular:',agd[posicao][4])
         print('e-mail:',agd[posicao][5])
         
-        resposta=text('Deseja realmente excluir? ','Você deve digitar S ou N',['s','S','n','N'])
+        resposta=text('Deseja realmente excluir?[s/S] ou [n/N]: ','Opção inválida. Por favor tente novamente',['s','S','n','N'])
         
         if resposta in ['s','S']:
             agd.remove(agd[posicao])
             print('Cadastro excluído com sucesso!')
         else:
-            print('Exclusão cancelada!')
+            print('Exclusão cancelada.')
     else:
-        print('Nome não encontrado!')
+        print('Nome não encontrado.')
